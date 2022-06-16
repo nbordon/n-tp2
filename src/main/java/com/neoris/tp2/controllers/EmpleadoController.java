@@ -1,18 +1,35 @@
 package com.neoris.tp2.controllers;
 
-import com.neoris.tp2.repositories.EmpleadoRepositorio;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.neoris.tp2.entities.EmpleadoDAO;
+import com.neoris.tp2.model.Empleado;
+import com.neoris.tp2.services.EmpleadoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+// REST Controller de Empleado
 @RestController
 @RequestMapping(value = "/empleado-api")
 public class EmpleadoController {
-    private EmpleadoRepositorio repositorio;
+    @Autowired
+    private EmpleadoService empleadoService;
 
-    @GetMapping(value = "/empleado")
-    public String nuevoEmpleado(){
-        //TODO alta de empleado
-        return "Alta de empleado";
+    // Listar todos los empleados
+    @GetMapping(value = "/empleados")
+    public List<EmpleadoDAO> listarEmpleados(){
+        return empleadoService.listarEmpleados();
+    }
+
+    // Buscar empleado por id
+    @GetMapping(value="/empleado/{id}")
+    public Empleado buscarEmpleado(@PathVariable(name = "id") Integer id){
+        return empleadoService.buscarEmpledo(id);
+    }
+
+    // Crear nuevo empleado
+    @PostMapping(value = "/empleado")
+    public void altaEmpleado(@RequestBody Empleado empleado){
+        empleadoService.crear(empleado);
     }
 }
