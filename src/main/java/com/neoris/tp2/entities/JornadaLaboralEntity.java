@@ -1,5 +1,6 @@
 package com.neoris.tp2.entities;
 
+import com.neoris.tp2.entities.tiposJornadas.TipoJornadaEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

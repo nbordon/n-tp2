@@ -1,4 +1,4 @@
-package com.neoris.tp2.entities;
+package com.neoris.tp2.entities.tiposJornadas;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
