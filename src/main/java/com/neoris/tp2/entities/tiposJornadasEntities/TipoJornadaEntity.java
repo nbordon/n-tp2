@@ -1,4 +1,4 @@
-package com.neoris.tp2.entities.tiposJornadas;
+package com.neoris.tp2.entities.tiposJornadasEntities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,12 +9,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tipo_jornada")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_jornada_obj")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TipoJornadaEntity {
+public abstract class TipoJornadaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Setter private String descripcion;
+    @Setter protected String descripcion;
 }
