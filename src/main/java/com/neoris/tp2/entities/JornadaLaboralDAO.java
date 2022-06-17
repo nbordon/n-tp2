@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -23,5 +25,8 @@ public class JornadaLaboralDAO {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_jornada_id", referencedColumnName = "id")
     private TipoJornadaDAO tipoJornada;
+    private LocalDate fecha;
+    private LocalTime horaEntrada;
+    private LocalTime horaSalida;
 
 }
