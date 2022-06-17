@@ -1,6 +1,6 @@
 package com.neoris.tp2.controllers;
 
-import com.neoris.tp2.entities.EmpleadoDAO;
+import com.neoris.tp2.entities.EmpleadoEntity;
 import com.neoris.tp2.model.Empleado;
 import com.neoris.tp2.services.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class EmpleadoController {
 
     // Listar todos los empleados
     @GetMapping(value = "/empleados")
-    public List<EmpleadoDAO> listarEmpleados(){
+    public List<EmpleadoEntity> listarEmpleados(){
         return empleadoService.listarEmpleados();
     }
 

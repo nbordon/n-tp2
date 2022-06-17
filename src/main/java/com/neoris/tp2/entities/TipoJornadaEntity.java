@@ -7,15 +7,14 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name = "empleado")
-public class EmpleadoDAO {
+@Table(name = "tipo_jornada")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class TipoJornadaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Setter private String nombre;
-    @Setter private String apellido;
+    @Setter private String descripcion;
 }

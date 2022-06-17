@@ -15,16 +15,16 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "jornada_laboral")
-public class JornadaLaboralDAO {
+public class JornadaLaboralEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "empleado_id",referencedColumnName = "id")
-    private EmpleadoDAO empleado;
+    private EmpleadoEntity empleado;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_jornada_id", referencedColumnName = "id")
-    private TipoJornadaDAO tipoJornada;
+    private TipoJornadaEntity tipoJornada;
     private LocalDate fecha;
     private LocalTime horaEntrada;
     private LocalTime horaSalida;
