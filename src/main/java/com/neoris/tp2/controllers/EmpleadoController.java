@@ -22,13 +22,13 @@ public class EmpleadoController {
     }
 
     // Buscar empleado por id
-    @GetMapping(value="/empleado/{id}")
+    @GetMapping(value="/empleados/{id}")
     public Empleado buscarEmpleado(@PathVariable(name = "id") Integer id){
         return empleadoService.buscarEmpledo(id);
     }
 
     // Crear nuevo empleado
-    @PostMapping(value = "/empleado")
+    @PostMapping(value = "/empleados")
     public void altaEmpleado(@RequestBody Empleado empleado){
         empleadoService.crear(empleado);
     }
