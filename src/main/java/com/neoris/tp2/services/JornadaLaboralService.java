@@ -6,12 +6,18 @@ import com.neoris.tp2.exceptions.ResourcesNotFoundException;
 import com.neoris.tp2.model.JornadaLaboral;
 import com.neoris.tp2.repositories.EmpleadoRepository;
 import com.neoris.tp2.repositories.JornadaLaboralRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
+import static java.time.temporal.TemporalAdjusters.nextOrSame;
+import static java.time.temporal.TemporalAdjusters.previousOrSame;
 
 @Service
+@Slf4j
 public class JornadaLaboralService {
     @Autowired
     private JornadaLaboralRepository repository;
@@ -42,5 +48,15 @@ public class JornadaLaboralService {
     // Guarda modificacion en jornada laboral
     public void guardar(JornadaLaboralEntity jornadaLaboralEntity) {
         repository.save(jornadaLaboralEntity);
+    }
+
+    // Un empleado no puede trabajar mas de 48 hs semanales, ni menos de 30 hs
+    public Boolean validarCantidadHorasTrabajadas(JornadaLaboralEntity jornada){
+        LocalDate fechaTrabajada = jornada.getFecha();
+        LocalDate inicioSemana = fechaTrabajada.with(previousOrSame(DayOfWeek.MONDAY));
+        LocalDate finSemana = fechaTrabajada.with(nextOrSame(DayOfWeek.SUNDAY));
+        List<JornadaLaboralEntity> jornadasTrabajadasEnLaSemana = repository.findByEmpleadoAndFechaBetween(jornada.getEmpleado(), inicioSemana,finSemana);
+        // TODO recorrer la lista de jornadas y calcular las horas trabajadas en la semana para validar si es posible cargar una nueva jornada
+        return new Boolean(true);
     }
 }
