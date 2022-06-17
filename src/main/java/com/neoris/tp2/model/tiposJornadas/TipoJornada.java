@@ -1,0 +1,14 @@
+package com.neoris.tp2.model.tiposJornadas;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public abstract class TipoJornada {
+    protected String descripcion;
+}
