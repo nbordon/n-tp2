@@ -1,6 +1,7 @@
 package com.neoris.tp2.services;
 
 import com.neoris.tp2.entities.EmpleadoEntity;
+import com.neoris.tp2.exceptions.ResourcesNotFoundException;
 import com.neoris.tp2.model.Empleado;
 import com.neoris.tp2.repositories.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,17 @@ public class EmpleadoService {
     }
 
     // Alta de empleado
-    public void crear(Empleado empleado) {
+    public EmpleadoEntity crear(Empleado empleado) {
         EmpleadoEntity nuevoEmpleado = new EmpleadoEntity();
         nuevoEmpleado.setNombre(empleado.getNombre());
         nuevoEmpleado.setApellido(empleado.getApellido());
-        empleadoRepository.save(nuevoEmpleado);
+        return empleadoRepository.save(nuevoEmpleado);
+
     }
 
     // Buscar Empleado por Id
-    public Empleado buscarEmpledo(Integer id) {
-        EmpleadoEntity empleadoBuscado = empleadoRepository.findById(id).get();
-        return new Empleado(empleadoBuscado.getNombre(), empleadoBuscado.getApellido());
+    public EmpleadoEntity buscarEmpledo(Integer id) throws ResourcesNotFoundException {
+        EmpleadoEntity empleadoBuscado = empleadoRepository.findById(id).orElseThrow(()-> new ResourcesNotFoundException("No encontrado empleado con id: " + id));
+        return empleadoBuscado;
     }
 }
