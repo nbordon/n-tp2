@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tipo_jornada")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_jornada_obj")
+@DiscriminatorColumn(name = "tipo_jornada_obj",discriminatorType = DiscriminatorType.INTEGER, columnDefinition = "TINYINT(1)")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

@@ -2,6 +2,6 @@ package com.neoris.tp2.entities.tiposJornadasEntities;
 
 import javax.persistence.DiscriminatorValue;
 
-@DiscriminatorValue("DIA_LIBRE")
+@DiscriminatorValue("3")
 public class DiaLibreEntity extends TipoJornadaEntity{
 }
