@@ -2,6 +2,8 @@ package com.neoris.tp2.controllers;
 
 import com.neoris.tp2.entities.EmpleadoEntity;
 import com.neoris.tp2.entities.JornadaLaboralEntity;
+import com.neoris.tp2.exceptions.HorasMaximasSemanalesException;
+import com.neoris.tp2.exceptions.HorasMinimasSinCargarException;
 import com.neoris.tp2.exceptions.ResourcesNotFoundException;
 import com.neoris.tp2.model.JornadaLaboral;
 import com.neoris.tp2.services.EmpleadoService;
@@ -26,17 +28,23 @@ public class JornadaLaboralController {
 
     // Alta de jornada Laboral para un empleado por su id
     @PostMapping(value = "/{empleado_id}/jornadas")
-    public ResponseEntity<JornadaLaboralEntity> crearJornada(
+    public ResponseEntity<String> crearJornada(
             @PathVariable(name = "empleado_id") String empleadoId,
             @RequestBody JornadaLaboral jornada
             ){
         try{
             EmpleadoEntity empleadoEntity = empleadoService.buscarEmpledo(Integer.parseInt(empleadoId));
-            JornadaLaboralEntity jornadaLaboralEntity = jornadaLaboralService.crear(jornada,empleadoEntity);
-            return new ResponseEntity<>(jornadaLaboralEntity, HttpStatus.CREATED);
+            jornadaLaboralService.crear(jornada,empleadoEntity);
+            return new ResponseEntity<>("Jornada cargada correctamente", HttpStatus.CREATED);
         }catch (ResourcesNotFoundException e){
             log.warn(e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Empleado no encontrado",HttpStatus.NOT_FOUND);
+        }catch (HorasMinimasSinCargarException e){
+            log.warn(e.getLocalizedMessage());
+            return new ResponseEntity<>("Faltan horas en la semana anterior",HttpStatus.NO_CONTENT);
+        }catch (HorasMaximasSemanalesException e){
+            log.warn(e.getLocalizedMessage());
+            return new ResponseEntity<>("Supera las horas maximas permitidas de la semana",HttpStatus.NO_CONTENT);
         }
     }
 
@@ -72,6 +80,7 @@ public class JornadaLaboralController {
             jornadaLaboralService.guardar(jornadaLaboralEntity);
             return new ResponseEntity<>(jornadaLaboralEntity,HttpStatus.OK);
         } catch (ResourcesNotFoundException e) {
+            log.warn(e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
@@ -85,6 +94,7 @@ public class JornadaLaboralController {
             JornadaLaboralEntity jornadaLaboralEntity = jornadaLaboralService.obtenerJornada(Integer.parseInt(id));
             return new ResponseEntity<>(jornadaLaboralEntity,HttpStatus.OK);
         } catch (ResourcesNotFoundException e) {
+            log.warn(e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
