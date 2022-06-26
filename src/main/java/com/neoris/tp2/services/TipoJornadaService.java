@@ -1,7 +1,6 @@
 package com.neoris.tp2.services;
 
 import com.neoris.tp2.entities.tiposJornadasEntities.TipoJornadaEntity;
-import com.neoris.tp2.entities.tiposJornadasEntities.TurnoNormalEntity;
 import com.neoris.tp2.repositories.TipoJornadaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
