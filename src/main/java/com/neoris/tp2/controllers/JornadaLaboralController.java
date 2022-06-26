@@ -98,4 +98,10 @@ public class JornadaLaboralController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
+
+    //TODO validar que tipo de jornada carga el empleado
+    //TODO validar carga de turno normal (normal: 6 a 8 hs / extra: 2 a 6 hs - maximo 12 hs por dia)
+    //TODO validar carga de dia libre (maximo 2 dias por semana - no puede cargar turno normal ni extra en las 24 hs de ese dia)
+    //TODO validar carga de vacaciones (no puede cargar turno normal ni extra en las 24 hs de ese dia)
+    //TODO validar maximo 2 empleados por turno
 }

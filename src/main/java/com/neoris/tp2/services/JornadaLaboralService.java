@@ -94,7 +94,7 @@ public class JornadaLaboralService {
     private long calcularHorasTrabajadas(List<JornadaLaboralEntity> jornadaSemanal){
         return jornadaSemanal.stream()
                 .map(j -> ChronoUnit.HOURS.between(j.getHoraSalida(),j.getHoraEntrada()))
-                .mapToLong(value -> Long.valueOf(value))
+                .mapToLong(Long::valueOf)
                 .sum();
     }
 }
